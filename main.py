@@ -3,7 +3,6 @@ import pandas as pd
 import altair as alt
 from st_aggrid import AgGrid, GridOptionsBuilder
 
-# 상단바 (HTML 및 CSS)
 st.markdown(
     """
     <style>
@@ -17,11 +16,11 @@ st.markdown(
             border-radius: 5px;
         }
         .chart-container {
-            margin-top: 60px;  
+            margin-top: 50px;  
         }
     </style>
     <div class="topbar">
-        <span>음성인식 모델 간 CER 비교</span>
+        <span>음성인식 모델 CER 비교</span>
     </div>
     """,
     unsafe_allow_html=True
@@ -71,23 +70,23 @@ dropdown_option = st.sidebar.selectbox("선택하세요:", ["모델", "데이터
 if dropdown_option == "모델":
     st.markdown(
         """
-        <div style="text-align: center; margin-bottom: 30px;">
-            <h2 style="font-family: Arial, sans-serif; color: rgba(255, 255, 255, 0.9); margin-bottom: 20px;">✨ 음성 인식 모델 소개</h2>
-                <p style="font-size: 14px; color: #777;">최신 음성 인식 모델을 소개합니다.</p>
+        <div style="text-align: center; margin-bottom: 25px;">
+            <h2 style="font-family: Arial, sans-serif; color: rgba(255, 255, 255, 0.9); margin-bottom: 25px; font-size: 24px; font-weight: bold;">✨ 음성 인식 모델 소개</h2>
+            <p style="font-size: 14px; color: #999; font-weight: bold; padding-bottom: 25px;">글로벌 기업에서 제공하는 한국어 음성인식 모델을 소개합니다.</p>
         </div>
         """,
         unsafe_allow_html=True
     )
 
     sections = [
-        {"title": "Amazon", "description": "AWS의 음성 인식 서비스를 소개합니다."},
-        {"title": "Microsoft", "description": "Microsoft의 Azure 클라우드 기반 음성 인식 서비스를 소개합니다."},
-        {"title": "OpenAI", "description": "OpenAI에서 개발한 높은 정확도의 최신 음성 인식 모델을 소개합니다."},
-        {"title": "META", "description": "준비중입니다."},
-        {"title": "Google", "description": "준비중입니다."},
-        {"title": "ReturnZero", "description": "준비중입니다."},
-        {"title": "ETRI", "description": "준비중입니다."},
-        {"title": "example", "description": "준비중입니다."},
+        {"title": "Amazon", "description": "클라우드 업계 선두주자인 Amazon AWS의 음성 인식 서비스 Amazon Transcribe 소개합니다."},
+        {"title": "Microsoft", "description": "Microsoft의 클라우드 기반 Azure Speech 음성 인식 서비스를 소개합니다."},
+        {"title": "OpenAI", "description": "OpenAI에서 개발한 높은 정확도의 최신 음성 인식 모델 whisper를 소개합니다."},
+        {"title": "META", "description": "META에 지원하는 정식 한국어 모델인 MMS 프로젝트의 음성인식 모델과 SeamlessM4T 멀티모달을 소개합니다."},
+        {"title": "Google", "description": "Google의 클라우드 기반 음성인식 서비스 Speech-to-Text의 버전 v1와 버전 v2를 소개합니다."},
+        {"title": "ReturnZero", "description": "국내 음성 인식 스타트업에서 가장 빠르고 정확한 음성 인식을 자랑하는 리턴제로의 VITO를 소개합니다."},
+        {"title": "ETRI", "description": "국내 인공 지능 R&D 산업을 지원하는 ETRI(한국전자통신연구원) 음성인식 기술을 소개합니다."},
+        {"title": "NAVER", "description": "국내 1위 클라우드 네이버의 음성인식 기술 CLOVA Speech Recognition을 소개합니다."},
         {"title": "example", "description": "준비중입니다."}
     ]
 
@@ -99,23 +98,23 @@ if dropdown_option == "모델":
                 st.markdown(
                     f"""
                     <div style="
-                        padding: 35px; 
+                        padding: 20px; 
                         background-color: #d3d3d3; 
                         border-radius: 30px; 
                         box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1); 
-                        height: 200px;  /* 고정된 높이 */
+                        height: 200px;
                         box-sizing: border-box;  /* 패딩과 테두리를 포함한 박스 사이징 */
-                        overflow: hidden;  /* 내용이 넘칠 경우 숨김 처리 */
-                        margin: 15px 15px 15px 15px; /* 모든 방향에 동일한 마진 */
+                        margin: 15px 15px 15px 15px;
                     ">
                         <h3 style="
                             color: #333; 
-                            font-size: 24px; 
+                            font-size: 20px; 
+                            font-weight: bold;                        
                             text-align: center; 
                         ">
                             {section['title']}
                         </h3>
-                        <p style="font-size: 14px; color: #666; margin-top: 10px; text-align: left;">
+                        <p style="font-size: 14px; font-weight: bold; color: #666; margin-top: 0px; text-align: left;">
                             {section['description']}
                         </p>
                     </div>
@@ -316,12 +315,11 @@ elif dropdown_option == "데이터셋":
             unsafe_allow_html=True
         )
 
-
         st.markdown(
             """
-            <div style="margin-top: 20px; background-color: #dcdcdc; padding: 15px; border-radius: 10px; 
+            <div style="background-color: #dcdcdc; padding: 15px; border-radius: 10px; 
                         box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1); border: 1px solid #aaa;">
-                <h5 style="font-family: Arial, sans-serif; color: #333;">📂 데이터셋 출처</h5>
+                <h5 style="font-family: Arial, sans-serif; color: #333; font-size: 24px;">📂 데이터셋 출처</h5>
                 <div style="margin-top: 15px;">
                     <div style="margin-bottom: 10px; padding: 10px; background-color: #e6e6e6; border-radius: 8px; 
                                 box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1); border: 1px solid #bbb;">
@@ -603,7 +601,7 @@ elif dropdown_option == "차트":
                     format=".1%",  # 퍼센트 포맷
                     grid=True  # x축 그리드 추가
                 ),
-                scale=alt.Scale(domain=[0.01, 0.06])  # x축 범위 설정
+                scale=alt.Scale(domain=[0.01, 0.08])  # x축 범위 설정
             ),
             y=alt.Y(
                 "Model:N", 

@@ -2,6 +2,7 @@ Company,Model,Average_CER,Average_CER_Without_Punct_And_Space,Average_CER_Improv
 amazon,amazon_transcribe,0.09,0.04,0.05
 microsoft,azure,0.05,0.03,0.02
 microsoft,azure_whisper,0.04,0.02,0.02
+한국기업,네이버(csr),0.12,0.06,0.07
 meta,mms,0.33,0.32,0.02
 meta,seamless,0.1,0.08,0.02
 google,V1_latest_short,0.06,0.04,0.02
