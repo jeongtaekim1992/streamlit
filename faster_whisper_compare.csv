@@ -1,0 +1,9 @@
+model,type,batch,A100,T4*2
+large-v3,float32,default,229.099,644.5369
+large-v3,float16 ,default,154.7522,277.0896
+large-v3,float32,16,34.9298,out of memory
+large-v3 ,float16,16,14.5563,74.4758
+large-v3-turbo,float32,default,64.1036,168.3662
+large-v3-turbo,float16 ,default,43.2279,73.7193
+large-v3-turbo,float32,16,16.2517,88.7072
+large-v3-turbo ,float16,16,5.8288,29.4403
