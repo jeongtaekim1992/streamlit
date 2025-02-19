@@ -67,18 +67,19 @@ if dropdown_option == "개요":
             </h2>
             <div style="font-family: 'Helvetica Neue', sans-serif; font-size:18px; color:#3a3a3a; line-height:1.8;">
                 <p style="text-align:center; font-weight:500; margin-bottom:30px;">
-                    본 프로젝트는 기독교인들이 유튜브 설교 영상으로 말씀을 묵상하는 데<br>
-                    보탬이 되고자 기획되었습니다.<br>
-                    긴 설교 영상을 시청하며 설교 노트를 작성하는 데 많은 시간이 소요되는 점을 고려하여,<br>
-                    <span style="color:#d32f2f; font-weight:bold;">효율적인 요약과 질의응답</span> 서비스를 제공하려는 목표입니다.
+                    본 프로젝트는 기독교인들이 유튜브 설교 영상을 통해<br>
+                    성경공부에 도움이 되고자 기획했습니다.<br>
+                    긴 영상 시청에 소요되는 시간을 줄이기 위해<br>
+                    <span style="color:#d32f2f; font-weight:bold;">요약과 질의응답</span> 서비스를 제공하려는 목표입니다.
                 </p>
                 <p style="text-align:center; font-weight:500; margin-bottom:30px;">
-                    이 프로젝트의 첫 번째 단계로, 음성인식 모델들의 <span style="color:#d32f2f; font-weight:bold;">CER(오류율)</span>과 
+                    이 프로젝트의 첫 번째 단계로,<br> 
+                    음성인식 모델들의 <span style="color:#d32f2f; font-weight:bold;">CER(오류율)</span>과 
                     <span style="color:#d32f2f; font-weight:bold;">전사 속도</span>를 비교하여,<br> 
-                    가장 최적화된 모델(예: Faster-Whisper)을 선정합니다.
+                    최적화된 모델(예: Faster-Whisper)을 선정합니다.
                 </p>
                 <p style="font-size:16px; color:#5c6bc0; text-align:center;">
-                    최종 음성인식 결과를 바탕으로 <span style="color:#5c6bc0;">요약, 번역, 질의응답</span> 등<br> 
+                    최종 음성인식 결과를 바탕으로 <span style="color:#5c6bc0;">요약, 질의응답, 번역</span> 등<br> 
                     다양한 부가 서비스와의 연계를 기대합니다.
                 </p>
             </div>
@@ -616,7 +617,7 @@ elif dropdown_option == "최적화":
                     border-radius: 15px;
                     box-shadow: 0px 2px 5px rgba(0,0,0,0.1);
                     margin: 10px;
-                    height: 180px;  /* 고정 높이 */
+                    height: 160px;  /* 고정 높이 */
                     width: 100%;
                 }
                 .card-title {
@@ -643,8 +644,9 @@ elif dropdown_option == "최적화":
                 <div class="card-box">
                     <div class="card-title">📝 요약</div>
                     <div class="card-desc">
-                        긴 설교 영상의 핵심 메시지를 간결하게 정리하여,<br>
-                        사용자의 효율적인 성경 공부 환경을 제공합니다.
+                        전사된 글에서
+                        핵심 메세지만 요약하고 정리하는<br> 
+                        Text/Vedio Summarization<br>
                     </div>
                 </div>
             """, unsafe_allow_html=True)
@@ -653,8 +655,9 @@ elif dropdown_option == "최적화":
                 <div class="card-box">
                     <div class="card-title">❓질의응답</div>
                     <div class="card-desc">
-                        설교 내용을 바탕으로 의문점들을 즉각적으로 해소하도록<br>
-                        실시간 피드백과 상세한 답변을 제공합니다.
+                        전사된 글을 기반으로<br>
+                        질의응답 서비스를 제공하는<br>
+                        Qustion Answering<br>
                     </div>
                 </div>
             """, unsafe_allow_html=True)
@@ -663,8 +666,9 @@ elif dropdown_option == "최적화":
                 <div class="card-box">
                     <div class="card-title">🌍 번역</div>
                     <div class="card-desc">
-                        다국어 번역 기능을 통해,<br>
-                        글로벌 선교 사역에 활용할 수 있도록 지원합니다.
+                        전사된 텍스트를 번역하여<br>
+                        글로벌 선교 사역에 활용하는<br>
+                        translation                   
                     </div>
                 </div>
             """, unsafe_allow_html=True)
