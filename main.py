@@ -67,10 +67,15 @@ if dropdown_option == "개요":
             </h2>
             <div style="font-family: 'Helvetica Neue', sans-serif; font-size:18px; color:#3a3a3a; line-height:1.8;">
                 <p style="text-align:center; font-weight:500; margin-bottom:30px;">
-                    본 프로젝트는 기독교인들이 유튜브 설교 영상을 통해<br>
-                    성경공부에 도움이 되고자 기획했습니다.<br>
-                    긴 영상 시청에 소요되는 시간을 줄이기 위해<br>
-                    <span style="color:#d32f2f; font-weight:bold;">요약과 질의응답</span> 서비스를 제공하려는 목표입니다.
+                    많은 교회들이 매주 강단 메세지 녹취록을 작성합니다.<br>
+                    제가 다니는 교회도 타이핑을 통해 녹취록을 전사합니다.<br>
+                    <a href="http://www.dongboo.tv/main/sub.html?pageCode=50" target="_blank" style="text-decoration:none; color:#007bff; font-weight:bold;">Click here to visit the website</a>
+                </p>
+                <p style="text-align:center; font-weight:500; margin-bottom:30px;">
+                    본 프로젝트는 기독교인들의 성경 공부 지원을 위해 기획했습니다.<br>
+                    유튜브 설교 영상을 기반으로 녹취록을 자동 전사하고<br>
+                    성도들은 긴 영상 시청 시간을 효율적으로 관리하며<br>
+                    <span style="color:#d32f2f; font-weight:bold;">요약과 질의응답</span>을 통해 성경 노트 작성에 도움을 받습니다.
                 </p>
                 <p style="text-align:center; font-weight:500; margin-bottom:30px;">
                     이 프로젝트의 첫 번째 단계로,<br> 
@@ -454,7 +459,7 @@ elif dropdown_option == "평가":
                                                             titleAngle=0, labels=False, titlePadding=-30)),
                 spacing=10
             ).resolve_scale(x='shared', y='independent').properties(
-                title="구두점과 띄어쓰기를 제거했을 때 평균 개선율"
+                title="<구두점과 띄어쓰기를 제거했을 때 평균 개선율>"
             ).configure_title(
                 font="Helvetica Neue",
                 fontSize=18,
@@ -645,7 +650,7 @@ elif dropdown_option == "최적화":
                     <div class="card-title">📝 요약</div>
                     <div class="card-desc">
                         전사된 글에서
-                        핵심 메세지만 요약하고 정리하는<br> 
+                        핵심 메세지를 요약하고 녹취록을 작성<br> 
                         Text/Vedio Summarization<br>
                     </div>
                 </div>
@@ -656,7 +661,7 @@ elif dropdown_option == "최적화":
                     <div class="card-title">❓질의응답</div>
                     <div class="card-desc">
                         전사된 글을 기반으로<br>
-                        질의응답 서비스를 제공하는<br>
+                        질의응답 챗봇을 제공하는<br>
                         Qustion Answering<br>
                     </div>
                 </div>
