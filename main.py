@@ -41,6 +41,10 @@ combined_transcription_data = load_data("combined_transcription.csv")
 faster_whisper_data = load_data("faster_whisper_compare.csv")
 segments_data = load_data("segments.csv")
 
+# txt 파일 로드
+with open('summary.txt', 'r', encoding='utf-8') as file:
+    summary_data = file.read().strip().replace('\r\n', '\n').replace('\r', '\n')
+
 # "평가" 데이터를 정렬
 def sort_company(company):
     return (company == "한국어", company)
@@ -53,7 +57,7 @@ sorted_data = average_data.sort_values(
 # 사이드바 메뉴
 st.sidebar.title("목차")
 dropdown_option = st.sidebar.selectbox("선택하세요:", 
-    ["개요", "모델선정", "데이터셋", "평가", "최적화"])
+    ["개요", "음성모델", "데이터셋", "평가", "최적화", "요약모델"])
 
 
 # ─── 개요 ──────────────────────────────────────────────
@@ -72,31 +76,29 @@ if dropdown_option == "개요":
                     <a href="http://www.dongboo.tv/main/sub.html?pageCode=50" target="_blank" style="text-decoration:none; color:#007bff; font-weight:bold;">Click here to visit the website</a>
                 </p>
                 <p style="text-align:center; font-weight:500; margin-bottom:30px;">
-                    본 프로젝트는 기독교인들의 성경 공부 지원을 위해 기획했습니다.<br>
-                    유튜브 설교 영상을 기반으로 녹취록을 자동 전사하고<br>
-                    성도들은 긴 영상 시청 시간을 효율적으로 관리하며<br>
-                    <span style="color:#d32f2f; font-weight:bold;">요약과 질의응답</span>을 통해 성경 노트 작성에 도움을 받습니다.
-                </p>
-                <p style="text-align:center; font-weight:500; margin-bottom:30px;">
-                    이 프로젝트의 첫 번째 단계로,<br> 
-                    음성인식 모델들의 <span style="color:#d32f2f; font-weight:bold;">CER(오류율)</span>과 
-                    <span style="color:#d32f2f; font-weight:bold;">전사 속도</span>를 비교하여,<br> 
-                    최적화된 모델(예: Faster-Whisper)을 선정합니다.
-                </p>
-                <p style="font-size:16px; color:#5c6bc0; text-align:center;">
-                    최종 음성인식 결과를 바탕으로 <span style="color:#5c6bc0;">요약, 질의응답, 번역</span> 등<br> 
-                    다양한 부가 서비스와의 연계를 기대합니다.
+                    본 프로젝트는 유튜브 설교 영상을 자동 전사&요약을 위해 기획했습니다.<br>
+                    성도들은 긴 영상 시청 시간을 효율적으로 관리하며,<br>
+                    <span style="color:#d32f2f; font-weight:bold;">음성전사 및 요약</span>을 통해 성경 공부에 도움을 제공합니다.<br>
                 </p>
             </div>
         </div>
     """, unsafe_allow_html=True)
 
-
+# <p style="text-align:center; font-weight:500; margin-bottom:30px;">
+#     이 프로젝트의 첫 번째 단계로,<br> 
+#     음성인식 모델들의 <span style="color:#d32f2f; font-weight:bold;">CER(오류율)</span>과 
+#     <span style="color:#d32f2f; font-weight:bold;">전사 속도</span>를 비교하여,<br> 
+#     최적화된 모델(예: Faster-Whisper)을 선정합니다.
+# </p>
+# <p style="font-size:16px; color:#5c6bc0; text-align:center;">
+#     최종 음성인식 결과를 바탕으로 <span style="color:#5c6bc0;">요약, 질의응답, 번역</span> 등<br> 
+#     다양한 부가 서비스와의 연계를 기대합니다.
+# </p>
 
 
 
 # ─── 모델선정 ──────────────────────────────────────────────
-elif dropdown_option == "모델선정":
+elif dropdown_option == "음성모델":
     st.markdown("""
         <div style="text-align: center; margin-bottom: 25px;">
             <h2 style="font-family: Arial, sans-serif; color: rgba(255,255,255,0.9);
@@ -514,8 +516,8 @@ elif dropdown_option == "평가":
 
 # ─── 최적화 ───────────────────────────────────────────────
 elif dropdown_option == "최적화":
-    tab1, tab2, tab3, tab4, tab5 = st.tabs(["최적화 모델 소개", "테스트 환경", "추론 속도 비교", "실제 전사 결과", "기술연계"])
-
+    # tab1, tab2, tab3, tab4, tab5 = st.tabs(["최적화 모델 소개", "테스트 환경", "추론 속도 비교", "실제 전사 결과", "기술연계"])
+    tab1, tab2, tab3, tab4 = st.tabs(["최적화 모델 소개", "테스트 환경", "추론 속도 비교", "실제 전사 결과"])
     faster_whisper_data = faster_whisper_data.melt(
         id_vars=['model', 'type', 'batch'],
         value_vars=['A100', 'T4×2'],
@@ -529,7 +531,7 @@ elif dropdown_option == "최적화":
     test_env = {
         "Test Environment": ["Google Colab", "Kaggle"],
         "Model Size": ["large-v3", "large-v3-turbo"],
-        "GPU": ["NVIDIA A100", "T4 × 2"],
+        "GPU": ["NVIDIA A100", "NVIDIA T4 × 2"],
         "Batch Size": [8, 16],
         "Data Type": ["FP16", "FP32"]
     }
@@ -613,67 +615,72 @@ elif dropdown_option == "최적화":
                                       cellStyle={"textAlign": "left"},
                                       headerClass={"textAlign": "left"})
         AgGrid(segments_data, gridOptions=grid_options.build(), height=160, fit_columns_on_grid_load=True)
-    with tab5:
-        st.markdown("""
-            <style>
-                .card-box {
-                    background-color: #d3d3d3;
-                    padding: 15px;
-                    border-radius: 15px;
-                    box-shadow: 0px 2px 5px rgba(0,0,0,0.1);
-                    margin: 10px;
-                    height: 160px;  /* 고정 높이 */
-                    width: 100%;
-                }
-                .card-title {
-                    font-family: Arial, sans-serif;
-                    color: #333;
-                    font-size: 20px;  /* 증가된 폰트 크기 */
-                    font-weight: bold;
-                    text-align: center;
-                    margin-bottom: 10px;
-                }
-                .card-desc {
-                    font-family: Arial, sans-serif;
-                    color: #666;
-                    font-size: 16px;  /* 증가된 폰트 크기 */
-                    text-align: center;
-                    overflow: auto;
-                }
-            </style>
-        """, unsafe_allow_html=True)
+  
 
-        col1, col2, col3 = st.columns(3)
+elif dropdown_option == "요약모델":
+    tab1, tab2 = st.tabs(["모델 소개", "요약 결과 비교"])
+
+    with tab1:
+        st.markdown(
+            """
+            <div style="background-color:rgba(240, 248, 255, 0.8); padding:25px; border-radius:15px; 
+                        margin-top:30px; box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15); border: 2px solid #a1c4fd;">
+                <h2 style="font-family: 'Verdana', sans-serif; font-size:24px; color:#1e2a47; text-align:center; 
+                        margin-bottom:20px; font-weight:bold;">
+                    <span style="color:#5c6bc0;">🤖 Gemma</span>
+                </h2>
+                <div style="font-family: 'Helvetica Neue', sans-serif; font-size:18px; color:#3a3a3a; line-height:1.8;">
+                    <p style="text-align:center; font-weight:500; margin-bottom:30px;">
+                        리턴제로에서 Google LLM Gemma를 기반으로<br>
+                        요약 서비스를 위한 한국어 파인튜닝 모델을 발표했습니다 <br>
+                        스크립트 요약에 <span style="color:#d32f2f;">"rtzr/ko-gemma-2-9b-it"</span>를 사용합니다.
+                    </p>
+                </div>
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
+
+    with tab2:        
+        st.markdown("<div style='margin-top:20px;'></div>", unsafe_allow_html=True)
+        
+        def create_text_column(title, text, char_count):
+            st.markdown(f"""
+                <div style="background-color:rgba(240, 248, 255, 0.8); padding:15px; border-radius:10px; 
+                            margin-bottom:15px; border: 1px solid #a1c4fd;">
+                    <h3 style="font-family: 'Arial', sans-serif; font-size:18px; color:#1e2a47; 
+                            text-align:center; margin:0; font-weight:bold;">
+                        {title}
+                    </h3>
+                </div>
+            """, unsafe_allow_html=True)
+            
+            st.markdown(
+                f"""
+                <div style="background-color: white; padding: 15px; border-radius: 5px; 
+                            border: 1px solid #ddd; margin-bottom: 10px;">
+                    <div style="font-family: 'Arial', sans-serif; font-size: 14px; color: #666;">
+                        총 문자 수: {char_count}자
+                    </div>
+                </div>
+                <div style="background-color: white; padding: 15px; border-radius: 5px; 
+                            border: 1px solid #ddd; height: 400px; overflow-y: auto;">
+                    <p style="font-family: 'Arial', sans-serif; font-size: 14px; 
+                            line-height: 1.6; color: rgb(33, 33, 33);">
+                        {text}
+                    </p>
+                </div>
+                """,
+                unsafe_allow_html=True
+            )
+        
+        col1, col2 = st.columns(2)
+        
         with col1:
-            st.markdown("""
-                <div class="card-box">
-                    <div class="card-title">📝 요약</div>
-                    <div class="card-desc">
-                        전사된 글에서
-                        핵심 메세지를 요약하고 녹취록을 작성<br> 
-                        Text/Vedio Summarization<br>
-                    </div>
-                </div>
-            """, unsafe_allow_html=True)
+            full_text = ' '.join(segments_data['text'].tolist())
+            create_text_column("원본 텍스트", full_text, len(full_text))
+
         with col2:
-            st.markdown("""
-                <div class="card-box">
-                    <div class="card-title">❓질의응답</div>
-                    <div class="card-desc">
-                        전사된 글을 기반으로<br>
-                        질의응답 챗봇을 제공하는<br>
-                        Qustion Answering<br>
-                    </div>
-                </div>
-            """, unsafe_allow_html=True)
-        with col3:
-            st.markdown("""
-                <div class="card-box">
-                    <div class="card-title">🌍 번역</div>
-                    <div class="card-desc">
-                        전사된 텍스트를 번역하여<br>
-                        글로벌 선교 사역에 활용하는<br>
-                        translation                   
-                    </div>
-                </div>
-            """, unsafe_allow_html=True)
+            create_text_column("요약 결과", summary_data, len(summary_data))
+
+        
